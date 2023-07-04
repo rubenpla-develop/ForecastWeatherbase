@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cursosant.forecastweatherbase.BuildConfig
 import com.cursosant.forecastweatherbase.R
 import com.cursosant.forecastweatherbase.common.CommonUtils
 import com.cursosant.forecastweatherbase.common.dataAccess.WeatherForecastService
@@ -101,7 +102,7 @@ class MainActivity : AppCompatActivity() , OnClickListener {
             .build()
         // TODO: 17/12/21 get appId
         val service = retrofit.create(WeatherForecastService::class.java)
-        service.getWeatherForecastByCoordinates(19.4342, -99.1962, "",
+        service.getWeatherForecastByCoordinates(19.4342, -99.1962, BuildConfig.OPEN_WEATHER_KEY,
             "metric", "en")
     }
 
