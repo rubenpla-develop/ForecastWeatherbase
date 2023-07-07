@@ -110,3 +110,4 @@ class MainViewModelTest {
         val result = mainViewModel.getResult().getOrAwaitValue()
         assertThat(result.hourly.size, `is`(48))
     }
+}
