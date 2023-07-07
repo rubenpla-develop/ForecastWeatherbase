@@ -38,13 +38,33 @@ class MainViewModelTest {
     @Test
     fun checkCurrentWeatherisNotNullTest() {
         runBlocking {
-            val result = service.getWeatherForecastByCoordinates(19.4342, -99.1962, BuildConfig.OPEN_WEATHER_KEY,
+            val appId = BuildConfig.OPEN_WEATHER_KEY
+            val result = service.getWeatherForecastByCoordinates(19.4342, -99.1962, appId,
                 "metric", "en")
 
             assertThat(result.current, `is`(notNullValue()))
         }
+    }
 
+    @Test
+    fun checkCurrentTimezoneReturnsMexico() {
+        runBlocking {
+            val appId = BuildConfig.OPEN_WEATHER_KEY
+            val result = service.getWeatherForecastByCoordinates(19.4342, -99.1962, appId,
+                "metric", "en")
 
-
+            assertThat(result.timezone, `is`("America/Mexico_City"))
+        }
+    }
+    @Test
+    fun checkErrorResponseWithOnlyCoordinatesTest() {
+        runBlocking {
+            try {
+                val result = service.getWeatherForecastByCoordinates(19.4342, -99.1962, "",
+                    "", "")
+            } catch(e: Exception) {
+                assertThat(e.localizedMessage, `is`("HTTP 401 Unauthorized"))
+            }
+        }
     }
 }
